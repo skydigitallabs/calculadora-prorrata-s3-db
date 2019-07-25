@@ -21,7 +21,7 @@ provider:
     SERVICE: ${self:service}
 
 functions: ${file(ymls/functions.yml)}
-# resources: ${file(ymls/resources.yml)}
+resources: ${file(ymls/resources.yml)}
 
 plugins:
   - serverless-offline
