@@ -5,19 +5,19 @@ calcProrratDbCustomersTable:
     TableName: ${self:provider.environment.CUSTOMERS_TABLE}
     AttributeDefinitions:
       - 
-        AttributeName: "Customer_id"
+        AttributeName: "CUSTOMER"
         AttributeType: "S"
       -
-        AttributeName: "Package_name"
+        AttributeName: "PACOTE_ANTIGO"
         AttributeType: "S"
       -
-        AttributeName: "Package_value"
+        AttributeName: "VLR_ANTIGO"
         AttributeType: "N"
       -
-        AttributeName: "New_package_name"
+        AttributeName: "PRODUTO_NOVO"
         AttributeType: "S"
       -
-        AttributeName: "New_package_value"
+        AttributeName: "VLR_NOVO"
         AttributeType: "N"
     KeySchema:
       - 
@@ -28,6 +28,6 @@ calcProrratDbCustomersTable:
       WriteCapacityUnits: 1
     Tags:
       -
-        Key: "${self:service}-customers-table-name"
+        Key: "${self:service}-table-name"
         Value: "${self:service}-customers-${opt:stage, self:provider.stage}"
 
