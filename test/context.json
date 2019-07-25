@@ -1,0 +1,38 @@
+{
+  "Records": [
+      {
+          "eventVersion": "2.1",
+          "eventSource": "aws:s3",
+          "awsRegion": "us-east-1",
+          "eventTime": "2019-07-24T13:48:21.130Z",
+          "eventName": "ObjectCreated:CompleteMultipartUpload",
+          "userIdentity": {
+              "principalId": "AWS:AROAIA7JNQM6PX3X5LEMK:WBR00118@sky.local"
+          },
+          "requestParameters": {
+              "sourceIPAddress": "191.183.199.135"
+          },
+          "responseElements": {
+              "x-amz-request-id": "59D6BDDD431832C2",
+              "x-amz-id-2": "KrgmrUE+oCUMqODo4Mq0nD2ABeJOWVtWwf7EAri9rJaXhRBUBIqMK4ctOuKGGOgpXPnHGMfHf3s="
+          },
+          "s3": {
+              "s3SchemaVersion": "1.0",
+              "configurationId": "57f60112-c891-4a2c-8566-97d0970c47c9",
+              "bucket": {
+                  "name": "prorrata-calculator-s3-db-files-dev",
+                  "ownerIdentity": {
+                      "principalId": "A4T6IV6DMOEIC"
+                  },
+                  "arn": "arn:aws:s3:::prorrata-calculator-s3-db-files-dev"
+              },
+              "object": {
+                  "key": "base_lannister_01.csv",
+                  "size": 28581574,
+                  "eTag": "28c588bbb9a080eb4ef4de9dd1a6eed3-2",
+                  "sequencer": "005D3861489BEAB1F9"
+              }
+          }
+      }
+  ]
+}

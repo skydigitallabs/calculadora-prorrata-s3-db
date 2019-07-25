@@ -1,0 +1,19 @@
+{
+  "name": "calc-prorrat-s3-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "offline": "sls offline start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.497.0"
+  },
+  "devDependencies": {
+    "serverless": "^1.48.3",
+    "serverless-offline": "^5.8.0"
+  }
+}

@@ -1,0 +1,24 @@
+calc-prorrat-s3-to-db:
+  handler: index.calcProrratS3ToDb
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+      Resource:
+        - arn:aws:s3:::${self:provider.environment.BUCKET}
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.CUSTOMERS_TABLE}"
+  events:
+    - s3:
+        bucket: ${self:provider.environment.BUCKET}
+        event: s3:ObjectCreated:*
+        rules:
+          - suffix: .csv

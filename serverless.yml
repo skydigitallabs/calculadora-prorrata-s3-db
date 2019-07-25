@@ -1,0 +1,27 @@
+service: 
+  name: prorrata-calculator-s3-db
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+  profile: default
+  memorySize: 128
+  timeout: 900
+  versionFunctions: false
+  stackTags:
+    department: labs-dev
+    projectName: prorrata-calculator-s3-db
+  environment:
+    BUCKET: ${self:service}-files-${opt:stage, self:provider.stage}
+    CUSTOMERS_TABLE: ${self:service}-customers-${opt:stage, self:provider.stage}
+    STAGE: ${self:provider.stage}
+    REGION: ${self:provider.region}
+    SERVICE: ${self:service}
+
+functions: ${file(ymls/functions.yml)}
+# resources: ${file(ymls/resources.yml)}
+
+plugins:
+  - serverless-offline
