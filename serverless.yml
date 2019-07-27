@@ -10,12 +10,14 @@ provider:
   memorySize: 128
   timeout: 900
   versionFunctions: false
+  role: arn:aws:iam::721988701745:role/${self:service}-role
   stackTags:
     department: labs-dev
     projectName: ${self:service}
     stage: ${opt:stage, self:provider.stage}
   environment:
     BUCKET: ${self:service}-files-${opt:stage, self:provider.stage}
+    LOG_BUCKET: ${self:service}-logs-${opt:stage, self:provider.stage}
     CUSTOMERS_TABLE: ${self:service}-customers-${opt:stage, self:provider.stage}
     STAGE: ${self:provider.stage}
     REGION: ${self:provider.region}
