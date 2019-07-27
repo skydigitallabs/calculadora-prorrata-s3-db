@@ -14,7 +14,7 @@ const { queryAwsDynamoDb,
 module.exports = class CalcProrratS3toDb {
 
   constructor(context, event, callback) {
-    this.event = context;
+    this.context = context;
     this.event = event;
     this.callback = callback;
 
@@ -24,10 +24,10 @@ module.exports = class CalcProrratS3toDb {
   async run() {
     try {      
 
-      if (this.event.Records) {
+      if (this.context.Records) {
         const S3 = new AWS.S3();
 
-        for(const record of this.event.Records) { // mudar para CONTEXT    
+        for(const record of this.context.Records) {
           const { s3 } = record;
           const s3params = { Bucket: s3.bucket.name, Key: s3.object.key };
           const s3Stream = S3.getObject(s3params).createReadStream()
@@ -113,6 +113,10 @@ module.exports = class CalcProrratS3toDb {
                   }
                 });
               }
+
+              console.log(`Registros importados com sucesso ............: ${csvArray.length - errors.length}`);
+              console.log(`Registros com erro ............: ${errors.length}`);
+              console.log(`Registros totais ............: ${csvArray.length}`);
             });
         }
       }
