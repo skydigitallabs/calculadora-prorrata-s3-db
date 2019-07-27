@@ -4,7 +4,7 @@ service:
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   region: us-east-1
   profile: default
   memorySize: 128
@@ -12,7 +12,8 @@ provider:
   versionFunctions: false
   stackTags:
     department: labs-dev
-    projectName: prorrata-calculator-s3-db
+    projectName: ${self:service}
+    stage: ${opt:stage, self:provider.stage}
   environment:
     BUCKET: ${self:service}-files-${opt:stage, self:provider.stage}
     CUSTOMERS_TABLE: ${self:service}-customers-${opt:stage, self:provider.stage}
@@ -21,7 +22,7 @@ provider:
     SERVICE: ${self:service}
 
 functions: ${file(ymls/functions.yml)}
-resources: ${file(ymls/resources.yml)}
+# resources: ${file(ymls/resources.yml)}
 
 plugins:
   - serverless-offline

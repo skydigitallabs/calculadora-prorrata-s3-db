@@ -1,33 +1,11 @@
 calcProrratDbCustomersTable:
-  Type: 'AWS::DynamoDB::Table'
+  Type: AWS::DynamoDB::Table
   DeletionPolicy: Retain
   Properties:
     TableName: ${self:provider.environment.CUSTOMERS_TABLE}
-    AttributeDefinitions:
-      - 
-        AttributeName: "CUSTOMER"
-        AttributeType: "S"
-      -
-        AttributeName: "PACOTE_ANTIGO"
-        AttributeType: "S"
-      -
-        AttributeName: "VLR_ANTIGO"
-        AttributeType: "N"
-      -
-        AttributeName: "PRODUTO_NOVO"
-        AttributeType: "S"
-      -
-        AttributeName: "VLR_NOVO"
-        AttributeType: "N"
     KeySchema:
-      - 
-        AttributeName: id
+      - AttributeName: id
         KeyType: HASH
     ProvisionedThroughput:
       ReadCapacityUnits: 1
       WriteCapacityUnits: 1
-    Tags:
-      -
-        Key: "${self:service}-table-name"
-        Value: "${self:service}-customers-${opt:stage, self:provider.stage}"
-
