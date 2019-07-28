@@ -41,7 +41,7 @@
       {
           "type": "node",
           "request": "launch",
-          "name": "Serverless Offline",
+          "name": "Prorrata calculator upload files",
           "console": "integratedTerminal",
           "program": "${workspaceRoot}/node_modules/serverless/bin/serverless",
           "args": ["invoke", "local", "--function", "calc-prorrat-s3-to-db", "--contextPath", "test/context.json"]

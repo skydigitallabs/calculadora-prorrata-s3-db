@@ -17,3 +17,17 @@ calc-prorrat-s3-to-db:
         event: s3:ObjectCreated:*
         rules:
           - suffix: .csv
+
+get-customer-info:
+  handler: index.getCustomerInfo
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: 
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.CUSTOMERS_TABLE}"
+  events:
+    - http:
+        path: /{customerId}
+        method: get
+        cors: true

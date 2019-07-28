@@ -14,3 +14,9 @@ module.exports.calcProrratS3ToDb = (event, context, callback) => {
   let lambda = new CalcProrrat(event, context, callback);
   lambda.run();
 }
+
+module.exports.getCustomerInfo = (event, context, callback) => {
+  const CustomerInfo = require('./functions/get-customer-info');
+  let lambda = new CustomerInfo(event, context, callback);
+  lambda.run();
+}
