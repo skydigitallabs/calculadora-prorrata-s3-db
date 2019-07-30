@@ -23,8 +23,16 @@ provider:
     REGION: ${self:provider.region}
     SERVICE: ${self:service}
 
+custom:
+  customDomain:
+    domainName: prorrata-backend.skydigital.io
+    basePath: ${self:provider.stage}
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
 functions: ${file(ymls/functions.yml)}
 # resources: ${file(ymls/resources.yml)}
 
 plugins:
   - serverless-offline
+  - serverless-domain-manager #Create the subdomain in API Gateway and connect it to the lambdas

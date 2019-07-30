@@ -13,8 +13,10 @@ module.exports.responseData = (statusCode, message, data) => {
   };
   return {
     headers: {
-      'Access-Controll-Allow-Origin': '*',
-      'Access-Controll-Allow-Credentials': true,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
     },
     statusCode: statusCode,
     body: JSON.stringify(bodyObj),

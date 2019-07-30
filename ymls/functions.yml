@@ -30,4 +30,15 @@ get-customer-info:
     - http:
         path: /{customerId}
         method: get
-        cors: true
+        integration: lambda-proxy
+        cors:
+          origin: '*'
+          headers:
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+            - Access-Controll-Allow-Origin
+          allowCredentials: false
