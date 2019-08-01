@@ -14,6 +14,12 @@ module.exports = class GetCustomerInfo {
   }
 
   async run() {
+
+    if (this.event.source === 'serverless-plugin-warmup') {
+      console.log('WarmUp - Lambda is warm!');
+      return callback(null, 'Lambda is warm!');
+    }
+
     try {
       const { customerId } = this.context.pathParameters;
       let result = {};
