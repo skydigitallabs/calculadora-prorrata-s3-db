@@ -27,7 +27,7 @@
                   "arn": "arn:aws:s3:::prorrata-calculator-s3-db-files-dev"
               },
               "object": {
-                  "key": "base_lannister_01.csv",
+                  "key": "base_lannister_teste.csv",
                   "size": 294,
                   "eTag": "1bd3b4b3681f3e9c349c8d4889a326c5",
                   "sequencer": "005D388B73B0931F8C"

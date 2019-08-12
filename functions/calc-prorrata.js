@@ -22,12 +22,12 @@ module.exports = class CalcProrratS3toDb {
   }
 
   async run() {
-    try {      
+    try {    
 
-      if (this.context.Records) {
+      if (this.event.Records) { // no server é this.context // debug é this.event
         const S3 = new AWS.S3();
 
-        for(const record of this.context.Records) {
+        for(const record of this.event.Records) { // no server é this.context // debug é this.event
           const { s3 } = record;
           const s3params = { Bucket: s3.bucket.name, Key: s3.object.key };
           const s3Stream = S3.getObject(s3params).createReadStream()
@@ -69,6 +69,7 @@ module.exports = class CalcProrratS3toDb {
                       'VLR_ANTIGO': { S: row.VLR_ANTIGO },
                       'PRODUTO_NOVO': { S: row.PRODUTO_NOVO },
                       'VLR_NOVO': { S: row.VLR_NOVO },
+                      'MES_FATURA': { S: row.MES_FATURA },
                     },
                   }
                   await putItemAwsDynamoDb(dDbParams);
@@ -80,17 +81,18 @@ module.exports = class CalcProrratS3toDb {
                       '#VLRANT': 'VLR_ANTIGO',
                       '#PCTNOV': 'PRODUTO_NOVO',
                       '#VLRNOV': 'VLR_NOVO',
-  
+                      '#MESFAT': 'MES_FATURA',
                     },
                     ExpressionAttributeValues: {
                       ':pctant': { S: row.PACOTE_ANTIGO },
                       ':vlrant': { S: row.VLR_ANTIGO },
                       ':pctnov': { S: row.PRODUTO_NOVO },
                       ':vlrnov': { S: row.VLR_NOVO },
+                      ':mesfat': { S: row.MES_FATURA },
                     }, 
                     Key: { 'CUSTOMER': { S: row.CUSTOMER } }, 
                     ReturnValues: 'ALL_NEW', 
-                    UpdateExpression: 'SET #PCTANT = :pctant, #VLRANT = :vlrant, #PCTNOV = :pctnov, #VLRNOV = :vlrnov'
+                    UpdateExpression: 'SET #PCTANT = :pctant, #VLRANT = :vlrant, #PCTNOV = :pctnov, #VLRNOV = :vlrnov, #MESFAT = :mesfat'
                   }
                   await updateItemAwsDynamoDb(dDbParams);
                 }
@@ -99,7 +101,7 @@ module.exports = class CalcProrratS3toDb {
               // errors accours
               if (errors.length > 0) {
                 // write csv file to S3
-                const logErrorName = getLogName();
+                const logErrorName = getLogName(s3.object.key);
                 const params = {
                   Bucket: process.env.LOG_BUCKET,
                   Key: logErrorName,
@@ -107,7 +109,7 @@ module.exports = class CalcProrratS3toDb {
                 };
                 S3.putObject(params, (err, data) => {
                   if (err) {
-                    console.log('Error in write log file in S3', `${err}: ${err.stack}`);
+                    console.log('Error ao gravar arquivo de log.', `${err}: ${err.stack}`);
                   } else {
                     console.log(`Não foi possível importar todas as informarções do arquivo ${s3.object.key}. Verifique o log em ${logErrorName}`)
                   }

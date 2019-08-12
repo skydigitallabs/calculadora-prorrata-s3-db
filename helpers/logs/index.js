@@ -1,6 +1,14 @@
 
 const { LOG_FILE_HEADER } = require('../constants');
 
+function getTimeStampString() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+  const day = `${date.getDate()}`.padStart(2, '0');
+  return `${year}${month}${day}`;
+}
+
 /**
  * Create a string to write in csv file
  * 
@@ -23,6 +31,6 @@ module.exports.createLogString = rows => {
  * 
  * @returns { string } Log name
  */
-module.exports.getLogName = () => {
-  return `${process.env.SERVICE}-${Date.now().toString()}-log.csv`;
+module.exports.getLogName = (importedFileName) => {
+  return `${importedFileName}-${getTimeStampString()}-log.csv`;
 }
