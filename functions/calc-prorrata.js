@@ -24,10 +24,10 @@ module.exports = class CalcProrratS3toDb {
   async run() {
     try {    
 
-      if (this.event.Records) { // no server é this.context // debug é this.event
+      if (this.context.Records) { // no server é this.context // debug é this.event
         const S3 = new AWS.S3();
 
-        for(const record of this.event.Records) { // no server é this.context // debug é this.event
+        for(const record of this.context.Records) { // no server é this.context // debug é this.event
           const { s3 } = record;
           const s3params = { Bucket: s3.bucket.name, Key: s3.object.key };
           const s3Stream = S3.getObject(s3params).createReadStream()
